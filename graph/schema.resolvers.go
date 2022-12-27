@@ -11,14 +11,14 @@ import (
 	"github.com/zlargon/gograph/graph/model"
 )
 
-// CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
+// CreateVideo is the resolver for the createVideo field.
+func (r *mutationResolver) CreateVideo(ctx context.Context, input model.NewVideo) (*model.Video, error) {
+	panic(fmt.Errorf("not implemented: CreateVideo - createVideo"))
 }
 
-// Todos is the resolver for the todos field.
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: Todos - todos"))
+// Videos is the resolver for the videos field.
+func (r *queryResolver) Videos(ctx context.Context) ([]*model.Video, error) {
+	panic(fmt.Errorf("not implemented: Videos - videos"))
 }
 
 // Mutation returns MutationResolver implementation.
