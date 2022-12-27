@@ -7,18 +7,30 @@ package graph
 import (
 	"context"
 	"fmt"
+	"math/rand"
 
 	"github.com/zlargon/gograph/graph/model"
 )
 
 // CreateVideo is the resolver for the createVideo field.
 func (r *mutationResolver) CreateVideo(ctx context.Context, input model.NewVideo) (*model.Video, error) {
-	panic(fmt.Errorf("not implemented: CreateVideo - createVideo"))
+	video := &model.Video{
+		ID:    fmt.Sprintf("T%d", rand.Int()),
+		URL:   input.URL,
+		Title: input.Title,
+		Author: &model.User{
+			ID:   input.UserID,
+			Name: "user " + input.UserID,
+		},
+	}
+
+	r.videos = append(r.videos, video)
+	return video, nil
 }
 
 // Videos is the resolver for the videos field.
 func (r *queryResolver) Videos(ctx context.Context) ([]*model.Video, error) {
-	panic(fmt.Errorf("not implemented: Videos - videos"))
+	return r.videos, nil
 }
 
 // Mutation returns MutationResolver implementation.

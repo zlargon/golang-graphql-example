@@ -1,5 +1,9 @@
 package graph
 
+import "github.com/zlargon/gograph/graph/model"
+
 //go:generate go run github.com/99designs/gqlgen
 
-type Resolver struct{}
+type Resolver struct {
+	videos []*model.Video
+}
