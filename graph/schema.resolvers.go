@@ -6,16 +6,22 @@ package graph
 
 import (
 	"context"
-	"fmt"
 	"math/rand"
+	"strconv"
 
 	"github.com/zlargon/gograph/graph/model"
+	"github.com/zlargon/gograph/repository"
+)
+
+var (
+	videoRepo repository.VideoRepository = repository.New()
 )
 
 // CreateVideo is the resolver for the createVideo field.
 func (r *mutationResolver) CreateVideo(ctx context.Context, input model.NewVideo) (*model.Video, error) {
 	video := &model.Video{
-		ID:    fmt.Sprintf("T%d", rand.Int()),
+		// FIXME: duplicate key error collection: graphql.videos index: _id_ dup key: { _id: "5577006791947779410" }]
+		ID:    strconv.Itoa(rand.Int()),
 		URL:   input.URL,
 		Title: input.Title,
 		Author: &model.User{
@@ -24,13 +30,13 @@ func (r *mutationResolver) CreateVideo(ctx context.Context, input model.NewVideo
 		},
 	}
 
-	r.videos = append(r.videos, video)
+	videoRepo.Save(video)
 	return video, nil
 }
 
 // Videos is the resolver for the videos field.
 func (r *queryResolver) Videos(ctx context.Context) ([]*model.Video, error) {
-	return r.videos, nil
+	return videoRepo.FindAll(), nil
 }
 
 // Mutation returns MutationResolver implementation.

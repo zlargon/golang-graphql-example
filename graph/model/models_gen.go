@@ -14,8 +14,8 @@ type User struct {
 }
 
 type Video struct {
-	ID     string `json:"id"`
-	Title  string `json:"title"`
-	URL    string `json:"url"`
-	Author *User  `json:"author"`
+	ID     string `json:"id"     bson:"_id" `
+	Title  string `json:"title"             `
+	URL    string `json:"url"               `
+	Author *User  `json:"author"            `
 }
