@@ -21,7 +21,7 @@ func main() {
 	server := gin.Default()
 	server.GET("/jwt", middleware.BasicAuth(), jwtController.GenerateToken)
 	server.GET("/", handler.PlaygroundHandler())
-	server.POST("/query", handler.GraphqlHandler())
+	server.POST("/query", middleware.AuthorizeJwt(), handler.GraphqlHandler())
 
 	port := getPort()
 	server.Run(":" + port)

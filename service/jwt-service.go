@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"os"
 	"time"
 
@@ -9,6 +10,7 @@ import (
 
 type JwtService interface {
 	GenerateToken(username string) (string, error)
+	ValidateToken(tokenString string) (*jwt.Token, error)
 }
 
 // jwtCustomClaims are custom claims extending default ones.
@@ -52,4 +54,18 @@ func (s *jwtService) GenerateToken(username string) (string, error) {
 		panic(err)
 	}
 	return t, nil
+}
+
+func (s *jwtService) ValidateToken(token string) (*jwt.Token, error) {
+	fmt.Println("token:", token)
+
+	return jwt.Parse(token, func(token *jwt.Token) (any, error) {
+		// Signing method validation
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+
+		// Return the secret signing key
+		return []byte(s.secretKey), nil
+	})
 }
