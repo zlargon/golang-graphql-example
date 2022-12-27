@@ -1,4 +1,4 @@
-package http
+package handler
 
 import (
 	"github.com/99designs/gqlgen/graphql/handler"

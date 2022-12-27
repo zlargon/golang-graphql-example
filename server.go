@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/zlargon/gograph/http"
+	"github.com/zlargon/gograph/handler"
 	"github.com/zlargon/gograph/middleware"
 )
 
@@ -20,8 +20,8 @@ func main() {
 	// setup gin
 	server := gin.Default()
 	server.Use(middleware.BasicAuth())
-	server.GET("/", http.PlaygroundHandler())
-	server.POST("/query", http.GraphqlHandler())
+	server.GET("/", handler.PlaygroundHandler())
+	server.POST("/query", handler.GraphqlHandler())
 	server.Run(":" + port)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
