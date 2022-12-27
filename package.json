@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "./run.sh",
+    "up": "docker compose -f mongodb.yml -p graphql-mongo up -d",
+    "stop": "docker compose -f mongodb.yml -p graphql-mongo stop",
+    "down": "docker compose -f mongodb.yml -p graphql-mongo down",
+    "logs": "docker compose -f mongodb.yml -p graphql-mongo logs --follow"
+  }
+}
