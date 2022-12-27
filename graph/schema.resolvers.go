@@ -8,6 +8,7 @@ import (
 	"context"
 	"math/rand"
 	"strconv"
+	"time"
 
 	"github.com/zlargon/gograph/graph/model"
 	"github.com/zlargon/gograph/repository"
@@ -19,8 +20,9 @@ var (
 
 // CreateVideo is the resolver for the createVideo field.
 func (r *mutationResolver) CreateVideo(ctx context.Context, input model.NewVideo) (*model.Video, error) {
+	rand.Seed(time.Now().UnixNano())
+
 	video := &model.Video{
-		// FIXME: duplicate key error collection: graphql.videos index: _id_ dup key: { _id: "5577006791947779410" }]
 		ID:    strconv.Itoa(rand.Int()),
 		URL:   input.URL,
 		Title: input.Title,
